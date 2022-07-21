@@ -3,7 +3,7 @@ const { MessageEmbed, MessageActionRow, MessageButton, Message } = require('disc
 const dayjs = require('dayjs')
 
 module.exports = {
-    name: "belladone1-3",
+    name: "belladone1-4",
     async runInteraction(client, interaction) {
         const profileData = await Profile.findOne({userId: interaction.user.id});
         const themeData = await Theme.findOne({themeName: profileData.profile.theme.usedTheme});
