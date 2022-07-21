@@ -33,7 +33,7 @@ module.exports = {
 
         var eventChances = Math.random() * 100 + 1
 
-        if (eventChances <= 2) {
+        if (eventChances <= 1) {
             message.channel.send({embeds: [embed], components: [ button ] }).then(msg => {setTimeout(() => msg.delete(), 300000)}).catch(console.error);
         };
     }
