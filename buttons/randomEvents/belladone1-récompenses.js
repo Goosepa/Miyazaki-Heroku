@@ -77,7 +77,7 @@ module.exports = {
         .setTitle(`Récompenses d'événement aléatoire`)
         .addFields(
             {
-                name: `${themeData.themeEmote} Affinité avec Belladone :`, value: `${profileData.friendship.belladone} ➡️ ${profileData.friendship.belladone + 1} \n (${profileData.friendship.belladone < 100 ? `${100 - profileData.friendship.belladone} points avant obtention du thème : Atropa Belladonna — Thème de Belladone` : `Thème obtenu : Atropa Belladonna — Thème de Belladone`})`, inline: true
+                name: `${themeData.themeEmote} Affinité avec Belladone :`, value: `${profileData.friendship.belladone} ➡️ ${profileData.friendship.belladone + 1} \n (${profileData.friendship.belladone < 100 ? `${100- 1 - profileData.friendship.belladone} points avant obtention du thème : Atropa Belladonna — Thème de Belladone` : `Thème obtenu : Atropa Belladonna — Thème de Belladone`})`, inline: true
             },
             {
                 name: `${themeData.themeEmote} 100000 fragments polaires :`, value: `${profileData.economy.coins} ➡️ ${profileData.economy.coins + 100000}`, inline: true

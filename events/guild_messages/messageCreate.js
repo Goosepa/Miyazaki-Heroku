@@ -91,7 +91,6 @@ module.exports = {
 //level.update1.dailymessage
 
             if (questData.dailies.messages || questData.dailies.messages == 0) {
-                const themeData = await Theme.findOne({ themeName: profileData.profile.theme.usedTheme });
                 await Quest.updateOne({ userId: message.member.user.id }, {
                     '$set' : {
                                 'dailies.messages': questData.dailies.messages + 1
@@ -121,7 +120,6 @@ module.exports = {
 //level.update1.dailymentions
 
             if (message.mentions.members.first()) {
-                const themeData = await Theme.findOne({ themeName: profileData.profile.theme.usedTheme });
                 if (message.mentions.members.first() == message.member.user.id) return;
 
                 if (questData.dailies.mentions || questData.dailies.mentions == 0) {
