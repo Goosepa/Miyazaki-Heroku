@@ -6,8 +6,6 @@ module.exports = {
     name: "belladone1-1",
     async runInteraction(client, interaction, message) {
         const profileData = await Profile.findOne({userId: interaction.user.id});
-        const themeData = await Theme.findOne({themeName: profileData.profile.theme.usedTheme});
-        const questData = await Quest.findOne({userId: interaction.user.id});
 
         const thread = interaction.channel
 

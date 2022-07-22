@@ -11,8 +11,8 @@ module.exports = {
         if (message.channel.type === "dm") return;
 
         if (message.guild) {
-            const profileData = await Profile.findOne({ userId: message.member.user.id });
-            const questData = await Quest.findOne({ userId: message.member.user.id });
+            const profileData = await Profile.findOne({ userId: message.member.user.id }, { guildId: message.guild.id });
+            const questData = await Quest.findOne({ userId: message.member.user.id }, { guildId: message.guild.id });
 
             const logChannel = client.channels.cache.get('995326497520893973')
 

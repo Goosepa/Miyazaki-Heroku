@@ -5,9 +5,6 @@ const dayjs = require('dayjs')
 module.exports = {
     name: "belladone1",
     async runInteraction(client, interaction) {
-        const profileData = await Profile.findOne({userId: interaction.user.id});
-        const questData = await Quest.findOne({userId: interaction.user.id});
-
         if (interaction.channel.threads.cache.find(x => x.name === `Belladone — Événement aléatoire (${interaction.user.id})`)) return interaction.reply({content: `Vous avez déjà lancé l'événement aléatoire.`, ephemeral: true});
 
         interaction.reply({content: `Événement aléatoire déclenché.`, ephemeral: true})
