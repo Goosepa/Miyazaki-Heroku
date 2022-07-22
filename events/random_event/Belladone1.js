@@ -46,7 +46,7 @@ module.exports = {
             await Quest.updateMany({ userId: "638436496596008972" }, {
                 "$set": {
                     "randomEvent": {
-                        "belladone": minute
+                        "belladone1": minute
                     }
                 }
             });
