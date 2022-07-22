@@ -14,13 +14,13 @@ module.exports = {
 
         if (message.channel.isThread()) return;
 
-        if (message.channel.threads.cache.find(x => x.name === 'Belladone — Événement aléatoire')) return;
+        
 
         const embed = new MessageEmbed()
         .setTitle(`Belladone — Directrice du Casino Belladone`)
         .setDescription(`Oh~ Je ne pensais pas te croiser de sitôt. Héhé, c'est le moment pour moi d'ajouter un nouveau membre fidèle à mon casino ♥ `)
         .setColor("0e0524")
-        .setThumbnail('https://media.discordapp.net/attachments/999092620796112946/999095516480667708/Belladone_1.png?width=671&height=671')
+        .setThumbnail('https://cdn.discordapp.com/attachments/999092620796112946/999828054677405737/Belladone_2.png?width=671&height=671')
         .setFooter({text: `👋 Déclencher l'événement aléatoire`})
 
         const button = new MessageActionRow()
@@ -33,7 +33,7 @@ module.exports = {
 
         var eventChances = Math.random() * 100 + 1
 
-        if (eventChances <= 5) {
+        if (eventChances <= 100) {
             message.channel.send({embeds: [embed], components: [ button ] }).then(msg => {setTimeout(() => msg.delete(), 300000)}).catch(console.error);
         };
     }

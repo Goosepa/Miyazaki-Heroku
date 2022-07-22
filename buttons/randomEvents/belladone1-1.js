@@ -19,7 +19,7 @@ module.exports = {
         .setTitle(`Belladone — Directrice du Casino Belladone`)
         .setDescription(`Je suis contente que cet endroit te plaise ♥ \n\nSi tu as un peu de temps, n'hésite pas à passer au casino ! Tu ne peux pas le rater: c'est le bâtiment le plus grand tout devant, alors je compte sur toi, héhé.`)
         .setColor("0e0524")
-        .setThumbnail('https://media.discordapp.net/attachments/996095065015451742/999732265301069964/Logo_Radiant_Realm.png?width=671&height=671')
+        .setThumbnail('https://cdn.discordapp.com/attachments/999092620796112946/999828054190854225/Belladone_1.png?width=671&height=671')
         .setFooter({text: `🔁 Passage automatique au prochain dialogue`})
 
         const embed2 = new MessageEmbed()

@@ -19,7 +19,7 @@ module.exports = {
         .setTitle(`Belladone — Directrice du Casino Belladone`)
         .setDescription(`Héhé, ça fait pas longtemps qu'on se connaît mais je t'aime déjà beaucoup ! Tu me rappelles un peu mon petit frère/ma petite soeur ♥ \n\n Je ne t'embête pas plus longtemps, à très bientôt ♥`)
         .setColor("0e0524")
-        .setThumbnail('https://media.discordapp.net/attachments/996095065015451742/999732265301069964/Logo_Radiant_Realm.png?width=671&height=671')
+        .setThumbnail('https://cdn.discordapp.com/attachments/999092620796112946/999828054190854225/Belladone_1.png?width=671&height=671')
         .addFields(
             {
                 name: `Récompenses de l'événement aléatoire :`, value: `1 point d'affinité avec Belladone, 10 jetons du Casino Belladone, 100000 fragments polaires`

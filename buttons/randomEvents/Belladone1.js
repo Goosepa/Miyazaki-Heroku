@@ -26,7 +26,7 @@ module.exports = {
         .setTitle(`Belladone — Directrice du Casino Belladone`)
         .setDescription(`Alors, ton séjour ici se passe bien ? Le déménagement n'a pas été trop compliqué ?`)
         .setColor("0e0524")
-        .setThumbnail('https://media.discordapp.net/attachments/999092620796112946/999095516480667708/Belladone_1.png?width=671&height=671')
+        .setThumbnail('https://cdn.discordapp.com/attachments/999092620796112946/999828054190854225/Belladone_1.png?width=671&height=671')
         .addFields(
             {
                 name: `Réponse possible :`, value: `1. Tout se passe bien pour l'instant.`
