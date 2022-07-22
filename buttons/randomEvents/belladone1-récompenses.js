@@ -78,7 +78,7 @@ module.exports = {
             },
             {
                 name: `${themeData.themeEmote} 10 jetons du Casino Belladone :`, value: `${profileData.inventory[itemPos].quantity || "0"} ➡️ ${profileData.inventory[i].quantity
-                + 10}`, inline: true
+                + 10 || "10"}`, inline: true
             }
         )
         .setColor(`${themeData.themeColor}`)
