@@ -51,20 +51,28 @@ module.exports = {
             }
         });
 
-        const itemPos = profileData.inventory.indexOf(x => x.name = "Jeton du Casino Belladone")
+        var i = 0
 
-        if (itemPos != -1) {
-            await Profile.updateOne({ userId: interaction.user.id }, {
-                '$set' : {
-                    [`inventory.${a}.quantity`] : profileData.inventory[a].quantity + 10
-                }
-            });
-        } else {
-            await Profile.updateOne({ userId: interaction.user.id }, {
-                '$push' : {
-                    inventory : { name: "Jeton du Casino Belladone", quantity: 10, category: "Objets échangeables" }
-                }
-            });
+        for (let a = 0; a < profileData.inventory.length; a++) {
+            const item = await profileData.inventory[a].name == "Jeton du Casino Belladone"
+
+            if (item && a < profileData.inventory.length) {
+                await Profile.updateOne({ userId: interaction.user.id }, {
+                    '$set' : {
+                        [`inventory.${a}.quantity`] : profileData.inventory[a].quantity + 10
+                    }
+                });
+
+                i = a
+            } else {
+                await Profile.updateOne({ userId: interaction.user.id }, {
+                    '$push' : {
+                        inventory : { name: "Jeton du Casino Belladone", quantity: 10, category: "Objets échangeables" }
+                    }
+                });
+
+                i = undefined
+            }
         }
 
         const embed = new MessageEmbed()
@@ -77,8 +85,7 @@ module.exports = {
                 name: `${themeData.themeEmote} 100000 fragments polaires :`, value: `${profileData.economy.coins} ➡️ ${profileData.economy.coins + 100000}`, inline: true
             },
             {
-                name: `${themeData.themeEmote} 10 jetons du Casino Belladone :`, value: `${profileData.inventory[itemPos].quantity || "0"} ➡️ ${profileData.inventory[itemPos].quantity
-                + 10 || "10"}`, inline: true
+                name: `${themeData.themeEmote} 10 jetons du Casino Belladone :`, value: `${i != undefined ? profileData.inventory[i].quantity : "0"} ➡️ ${i != undefined ? profileData.inventory[i].quantity + 10 : "10"}`, inline: true
             }
         )
         .setColor(`${themeData.themeColor}`)
