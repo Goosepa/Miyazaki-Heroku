@@ -77,7 +77,7 @@ module.exports = {
                 name: `${themeData.themeEmote} 100000 fragments polaires :`, value: `${profileData.economy.coins} ➡️ ${profileData.economy.coins + 100000}`, inline: true
             },
             {
-                name: `${themeData.themeEmote} 10 jetons du Casino Belladone :`, value: `${profileData.inventory[itemPos].quantity || "0"} ➡️ ${profileData.inventory[i].quantity
+                name: `${themeData.themeEmote} 10 jetons du Casino Belladone :`, value: `${profileData.inventory[itemPos].quantity || "0"} ➡️ ${profileData.inventory[itemPos].quantity
                 + 10 || "10"}`, inline: true
             }
         )
