@@ -33,21 +33,6 @@ module.exports = {
             await createQuest.save().then(p => logChannel.send(`Nouveau profil : ${p.id}`));
             }
 
-            if (!questData.dailies) {
-                await Quest.findOne({ userId: message.member.user.id }, {
-                    '$set' : {
-                        'dailies': {
-                            messages: 0,
-                            mentions: 0,
-                            event: 0,
-                            commission: 0,
-                            date: 0,
-                            reward: 0
-                        }
-                    }
-                })
-            }
-
             if (!profileData) {
                 const createProfile = new Profile({
                     guildId: message.member.guild.id,
