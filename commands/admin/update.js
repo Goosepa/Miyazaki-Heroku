@@ -9,7 +9,13 @@ module.exports = {
     usage: '`/update`',
     description: 'La commande `/update` permet de mettre à jour les données de la base de données.',
     async runInteraction(client, interaction) {
-        await Guild.updateMany({}, {upsert: true});
+        await Quest.updateMany({ userId: "638436496596008972" }, {
+            "$set": {
+                "randomEvent": {
+                    "belladone": 0
+                }
+            }
+        });
 
         await Profile.updateMany({}, {
             '$set': {

@@ -14,7 +14,7 @@ module.exports = {
     name: 'dailies',
     category: 'economy',
     permissions: ['CREATE_INSTANT_INVITE'],
-    ownerOnly: true,
+    ownerOnly: false,
     exemples: ['`/dailies`'],
     usage: '`/dailies`',
     description: 'La commande `/dailies` permet de mettre à jour les données de la base de données.',

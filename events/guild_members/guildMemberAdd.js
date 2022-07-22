@@ -53,6 +53,9 @@ module.exports = {
                     commission: 0,
                     date: 0,
                     reward: 0
+                },
+                randomEvent: {
+                    belladone1: {'type': Number, 'default': 0}
                 }
             });
             await createQuest.save().then(p => logChannel.send(`Nouveau profil : ${p.id}`));

@@ -11,6 +11,9 @@ const questSchema = mongoose.Schema({
         commission: {'type': Number, 'default': 0},
         date: {'type:': Number, 'default': 0},
         reward: {'type:': Number, 'default': 0}
+    },
+    randomEvent: {
+        belladone1: {'type': Number, 'default': 0}
     }
 });
 
