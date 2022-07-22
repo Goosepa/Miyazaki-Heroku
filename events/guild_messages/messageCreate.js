@@ -11,8 +11,8 @@ module.exports = {
         if (message.channel.type === "dm") return;
 
         if (message.guild) {
-            const profileData = await Profile.findOne({ userId: message.member.user.id }, { guildId: message.guild.id });
-            const questData = await Quest.findOne({ userId: message.member.user.id }, { guildId: message.guild.id });
+            const profileData = await Profile.findOne({ userId: message.member.user.id });
+            const questData = await Quest.findOne({ userId: message.member.user.id });
 
             const logChannel = client.channels.cache.get('995326497520893973')
 
@@ -47,7 +47,6 @@ module.exports = {
 //level.update1
 
             if (profileData) {
-                const themeData = await Theme.findOne({ themeName: profileData.profile.theme.usedTheme });
                 const expToLevelUp = ( profileData.level.level > 34 ? (profileData.level.level + 1) * 3000 : (profileData.level.level + 1) * 1000 );
     
                 await Profile.updateOne({ userId: message.member.user.id }, {
@@ -55,11 +54,6 @@ module.exports = {
                         'level.experience' : profileData.level.experience + 100
                     }
                 });
-
-                const embed = new MessageEmbed()
-                .setTitle(`Félicitation, vous êtes monté(e) au niveau ${profileData.level.level + 1} !`)
-                .setColor(`${themeData.themeColor}`)
-                .setDescription(`Merci d'être actif sur le serveur !`)
     
                 if (profileData.level.experience + 100 >= expToLevelUp) {
                     await Profile.updateOne({ userId: message.member.user.id }, {
