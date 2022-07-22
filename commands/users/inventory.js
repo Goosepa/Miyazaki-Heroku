@@ -14,7 +14,7 @@ module.exports = {
         const profileData = await Profile.findOne({userId: interaction.user.id});
 
         if (profileData.inventory.length == 0 || !profileData.inventory) {
-            return interaction.reply({ content: `Vous n'avez pas encore d'objets.` })
+            return interaction.reply({ content: `Vous n'avez pas encore d'objets.`, ephemeral: true })
         } else {
             const themeData = await Theme.findOne({themeName: profileData.profile.theme.usedTheme});
             const questData = await Quest.findOne({userId: interaction.user.id});
