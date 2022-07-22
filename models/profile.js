@@ -47,7 +47,7 @@ const profileSchema = mongoose.Schema({
             'default': 100000
         }
     },
-    inventory: [{ name: {'type': String, "default": "Pass Radieux"}, quantity: {'type': Number, "default": 0}, category: {'type': String, "default": "Objets de quête"}, itemEmote: {'type': String, "default": "🎟️"} }],
+    inventory: [],
     friendship: {
         belladone: {'type': Number, 'default': 0}
     }

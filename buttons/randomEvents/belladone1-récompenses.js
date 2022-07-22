@@ -51,30 +51,6 @@ module.exports = {
             }
         });
 
-        var i = 0
-
-        for (let a = 0; a < profileData.inventory.length; a++) {
-            const item = await profileData.inventory[a].name == "Jeton du Casino Belladone"
-
-            if (item && a < profileData.inventory.length) {
-                await Profile.updateOne({ userId: interaction.user.id }, {
-                    '$set' : {
-                        [`inventory.${a}.quantity`] : profileData.inventory[a].quantity + 10
-                    }
-                });
-
-                i = a
-            } else {
-                await Profile.updateOne({ userId: interaction.user.id }, {
-                    '$push' : {
-                        inventory : { name: "Jeton du Casino Belladone", quantity: 10, category: "Objets échangeables" }
-                    }
-                });
-
-                i = undefined
-            }
-        }
-
         const embed = new MessageEmbed()
         .setTitle(`Récompenses d'événement aléatoire`)
         .addFields(
@@ -83,14 +59,37 @@ module.exports = {
             },
             {
                 name: `${themeData.themeEmote} 100000 fragments polaires :`, value: `${profileData.economy.coins} ➡️ ${profileData.economy.coins + 100000}`, inline: true
-            },
-            {
-                name: `${themeData.themeEmote} 10 jetons du Casino Belladone :`, value: `${i != undefined ? profileData.inventory[i].quantity : "0"} ➡️ ${i != undefined ? profileData.inventory[i].quantity + 10 : "10"}`, inline: true
             }
         )
         .setColor(`${themeData.themeColor}`)
         .setFooter({text: `🔁 Le fil sera automatiquement supprimé dans 5 minutes`})
 
-        interaction.reply({embeds: [embed]})
+        for (let a = 0; a < profileData.inventory.length || profileData.inventory.length == 0; a++) {
+            const item = await profileData.inventory[a] == undefined ? false : profileData.inventory[a].name == "Jeton du Casino Belladone" ? true : false
+
+            if (item == true) {
+                await Profile.updateOne({ userId: interaction.user.id }, {
+                    '$set' : {
+                        [`inventory.${a}.quantity`] : profileData.inventory[a].quantity + 10
+                    }
+                });
+
+                embed.addFields({ name: `${themeData.themeEmote} 10 jetons du Casino Belladone :`, value: `${profileData.inventory[a].quantity} ➡️ ${profileData.inventory[a].quantity + 10}`, inline: true })
+
+                return interaction.reply({embeds: [embed]});
+
+            } else if (a == profileData.inventory.length) {
+
+                await Profile.updateOne({ userId: interaction.user.id }, {
+                    '$push' : {
+                        'inventory' : { name: "Jeton du Casino Belladone", quantity: 10, category: "Objets échangeables", itemEmote:"🪙"}
+                    }
+                });
+
+                embed.addFields({ name: `${themeData.themeEmote} 10 jetons du Casino Belladone :`, value: `0 ➡️ 10`, inline: true })
+
+                return interaction.reply({embeds: [embed]});
+            }
+        }
     }
 }

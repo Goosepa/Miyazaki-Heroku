@@ -24,14 +24,14 @@ module.exports = {
             .setColor(`${themeData.themeColor}`)
             .setFooter({text:`Type d'objets en tout : ${profileData.inventory.length }`, iconURL: interaction.user.displayAvatarURL()})
 
-            if (profileData.inventory.filter(x => x.category == 'Objets de quête') != undefined) {
+            if (profileData.inventory.filter(x => x.category == 'Objets de quête') != 0) {
                 embed.addField(
                     `Objets de quête`,
                     `${profileData.inventory.filter(x => x.category == 'Objets de quête').map(x => `${x.itemEmote} ${x.name} x${x.quantity}`).join('\n')}`
                 )
             }
 
-            if (profileData.inventory.filter(x => x.category == 'Objets échangeables') != undefined) {
+            if (profileData.inventory.filter(x => x.category == 'Objets échangeables') != 0 ) {
                 embed.addField(
                     `Objets échangeables`,
                     `${profileData.inventory.filter(x => x.category == 'Objets échangeables').map(x => `${x.itemEmote} ${x.name} x${x.quantity}`).join('\n')}`
