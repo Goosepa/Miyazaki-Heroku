@@ -7,7 +7,6 @@ module.exports = {
     name: 'messageCreate',
     once: false,
     async execute(client, message) {
-        console.log(readdirSync("./random_events"))
         if (message.author.bot) return;
         if (message.channel.type === "dm") return;
 
