@@ -39,7 +39,7 @@ module.exports = {
 
         if (interaction.options.getUser('member')) {
             const mentionUser = interaction.options.getUser('member')
-            const mentionProfileData = await Profile.findOne({ userId: mentionUser.id });
+            const mentionProfileData = await Profile.findOne({ userId: mentionUser.id, guildId: interaction.guild.id });
 
             if (!mentionProfileData) return interaction.reply({content: `Je suis désolé, Miyazaki n'a pas trouvé le profile de ${mentionUser}... Il se peut qu'il n'en ait pas encore.`, ephemeral: true});
     
@@ -97,7 +97,7 @@ module.exports = {
     
             interaction.reply({ embeds : [embed] });
         } else if (interaction.options.getString('signature')) {
-            const profileData = await Profile.findOne({ userId: interaction.user.id })
+            const profileData = await Profile.findOne({ userId: interaction.user.id, guildId: interaction.guild.id })
             const newSignature = interaction.options.getString('signature')
 
             if (newSignature.length < 300) {
@@ -134,7 +134,7 @@ module.exports = {
             }
 
         } else if (interaction.options.getString('anniversary')) {
-            const profileData = await Profile.findOne({ userId: interaction.user.id });
+            const profileData = await Profile.findOne({ userId: interaction.user.id, guildId: interaction.guild.id });
 
             if (profileData.profile.birthday.month != 0) return interaction.reply({content: `Tu m'as déjà dit ta date d'anniversaire non ?`, ephemeral: true})
 
@@ -159,7 +159,7 @@ module.exports = {
             } else interaction.reply({ content : `Je crois que tu n'as pas saisi une date correcte... Il y a peut-être trop de caractères.`, ephemeral: true})
 
         } else if (interaction.options.getString() == null) {
-            const profileData = await Profile.findOne({ userId: interaction.user.id })
+            const profileData = await Profile.findOne({ userId: interaction.user.id, guildId: interaction.guild.id })
             const themeData = await Theme.findOne({ themeName: profileData.profile.theme.usedTheme })
             const expToLevelUp = ( profileData.level.level > 34 ? (profileData.level.level + 1) * 3000 : (profileData.level.level + 1) * 1000 );
 
@@ -198,15 +198,9 @@ module.exports = {
                 },
                 {
                     name: `${themeData.themeEmote} Messages privés`, value: `${profileData.profile.mp == 0 ? `🟩 Ouverts` : profileData.profile.mp == 1 ? `🟧 Sur demande` : `🟥 fermés`}`, inline : true
-                }
+                },
+                {name :`${themeData.themeEmote} Fragments polaires`, value:`🌠 ${profileData.economy.coins}`}
             )
-            for (let a = 0; a < lb.length; a++) {
-                const you = await interaction.guild.members.fetch(lb[a].userId) == interaction.user.id ? a + 1 : null
-
-                if (you) {
-                    embed.addFields({name :`${themeData.themeEmote} Fragments polaires`, value:`Fragments polaires : ${profileData.economy.coins} — Votre classement : ${you}`})
-                }
-            }
             embed.addField(`${themeData.themeEmote} Niveau ${profileData.level.level}`, `${expBar}⬆️ (${profileData.level.experience}/${expToLevelUp})`)
             embed.setTimestamp()
             embed.setImage(`${themeData.themeImage}`)

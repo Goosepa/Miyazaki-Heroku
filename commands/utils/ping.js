@@ -10,7 +10,7 @@ module.exports = {
     usage: '`/ping`',
     description: 'La commande `/ping` permet de connaître la latence entre l\'API et le bot.',
     async runInteraction(client, interaction) {
-        const profileData = await Profile.findOne({ userId: interaction.user.id });
+        const profileData = await Profile.findOne({ userId: interaction.user.id, guildId: interaction.guild.id });
         const themeData = await Theme.findOne({ themeName: profileData.profile.theme.usedTheme });
         const embed = new MessageEmbed()
         .setTitle(`${themeData.themeEmote} Tu as effectué la commande \`/ping\` !`)

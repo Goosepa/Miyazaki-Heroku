@@ -12,6 +12,7 @@
   "author": "Pagoose",
   "license": "ISC",
   "dependencies": {
+    "cron": "2.1.0",
     "dayjs": "1.10.7",
     "discord.js": "13.6.0",
     "dotenv": "16.0.0",

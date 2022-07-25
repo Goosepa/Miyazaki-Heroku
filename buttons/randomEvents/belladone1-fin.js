@@ -5,8 +5,6 @@ const dayjs = require('dayjs')
 module.exports = {
     name: "belladone1-fin",
     async runInteraction(client, interaction) {
-        const profileData = await Profile.findOne({userId: interaction.user.id});
-
         const thread = interaction.channel
 
         if (!thread.name.includes(interaction.user.id)) return interaction.reply({content: `Action impossible lors de l'événement aléatoire d'un autre membre.`, ephemeral: true});

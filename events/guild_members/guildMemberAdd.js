@@ -1,5 +1,5 @@
 const { MessageEmbed } = require('discord.js');
-const { Profile, Quest, Theme} = require('../../models/index');
+const { Profile, Theme} = require('../../models/index');
 
 module.exports = {
     name: 'guildMemberAdd',
@@ -8,7 +8,6 @@ module.exports = {
         const fetchGuild = await client.getGuild(member.guild);
 
         const profileData = await Profile.findOne({ userId: member.user.id }) && await Profile.findOne({ userId: member.guild.id });
-        const questData = await Quest.findOne({ userId: member.user.id }) && await Quest.findOne({ userId: member.guild.id });
 
         const embed = new MessageEmbed()
         .setAuthor( { name: `${ member.user.tag } (${member.id})`, iconURL: member.user.displayAvatarURL() })
@@ -39,26 +38,6 @@ module.exports = {
             });
 
             await createProfile.save().then(p => logChannel.send(`Nouveau profil : ${p.id}`));
-        }
-
-        if (!questData) {
-            const createQuest = new Quest({
-                guildId: member.guild.id,
-                userId: member.user.id,
-                username: member.user.username,
-                dailies: {
-                    messages: 0,
-                    mentions: 0,
-                    event: 0,
-                    commission: 0,
-                    date: 0,
-                    reward: 0
-                },
-                randomEvent: {
-                    belladone1: {'type': Number, 'default': 0}
-                }
-            });
-            await createQuest.save().then(p => logChannel.send(`Nouveau profil : ${p.id}`));
         }
     },
 };

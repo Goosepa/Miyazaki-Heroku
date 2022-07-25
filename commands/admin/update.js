@@ -1,4 +1,4 @@
-const { Guild, Profile, Theme, Quest, Item } = require('../../models/index');
+const { Guild, Profile, Theme, Item } = require('../../models/index');
 
 module.exports = {
     name: 'update',
@@ -9,26 +9,35 @@ module.exports = {
     usage: '`/update`',
     description: 'La commande `/update` permet de mettre à jour les données de la base de données.',
     async runInteraction(client, interaction) {
-        await Quest.updateMany({ userId: "638436496596008972" }, {
-            "$set": {
-                "randomEvent": {
-                    "belladone": 0
+        await Profile.updateMany({}, {
+            "$set" : {
+                'quests': {
+                    'dailies': {
+                        'combo': 0,
+                        'messages': 0,
+                        'mentions': 0,
+                        'event': 0,
+                        'commission': 0,
+                        'reward': 0
+                    },
+                    'mains': {
+                        'intro': {
+                            'save': 0,
+                        }
+                    },
+                    'hangouts': {
+                        'belladone1': {
+                            'save': 0,
+                        }
+                    }
+                },
+                'casino': {
+                    'dailyPulls': 0,
+                    'pityPoints': 0,
+                    'pity': 0
                 }
             }
         });
-
-        await Profile.updateMany({}, {
-            '$set': {
-                'inventory': [ {name: "Pass Radieux", quantity: 1, category: "Objets de quête", itemEmote:"🎟️"}, {name: "Jeton du Casino Belladone", quantity: 100, category: "Objets échangeables", itemEmote:"🪙"} ]
-            }
-        });
-
-        await new Quest({}, {
-
-        });
-
-        await new Item({}, {
-        })
 
         interaction.reply(`Miyazaki a mis à jour la base de données !`)
     }

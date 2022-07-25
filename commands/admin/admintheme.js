@@ -48,7 +48,7 @@ module.exports = {
     
                 };
             } else {
-                const profileData = await Profile.findOne({ userId: interaction.user.id });
+                const profileData = await Profile.findOne({ userId: interaction.user.id, guildId: interaction.guild.id });
                 const addTheme = await Theme.findOne({ themeId: theme });
     
                 if (!addTheme) return interaction.reply({content: `Miyazaki ne trouve pas ce thème... Tu as peut-être fait une erreur sur l'identifiant du thème ? Voici l'identifiant que tu as saisi : ${theme}.`, ephemeral: true});
@@ -98,7 +98,7 @@ module.exports = {
     
                 };
             } else {
-                const profileData = await Profile.findOne({ userId: interaction.user.id });
+                const profileData = await Profile.findOne({ userId: interaction.user.id, guildId: interaction.guild.id });
                 const removeTheme = await Theme.findOne({ themeId: theme });
     
                 if (!removeTheme) return interaction.reply({content: `Miyazaki ne trouve pas ce thème... Tu as peut-être fait une erreur sur l'identifiant du thème ? Voici l'identifiant que tu as saisi : ${theme}.`, ephemeral: true});

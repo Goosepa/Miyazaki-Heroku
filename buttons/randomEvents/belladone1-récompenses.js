@@ -6,32 +6,30 @@ module.exports = {
     name: "belladone1-récompenses",
     async runInteraction(client, interaction) {
         const thread = interaction.channel
-        const profileData = await Profile.findOne({userId: interaction.user.id});
+        const profileData = await Profile.findOne({userId: interaction.user.id, guildId: interaction.guild.id});
         const themeData = await Theme.findOne({themeName: profileData.profile.theme.usedTheme});
-        const questData = await Quest.findOne({userId: interaction.user.id});
 
         if (!thread.name.includes(interaction.user.id)) return interaction.reply({content: `Action impossible lors de l'événement aléatoire d'un autre membre.`, ephemeral: true});
 
         await interaction.message.delete()
 
-        if (!profileData.friendship) {
-            await Profile.updateOne({ userId: interaction.user.id }, {
+        if (!profileData.friendship.belladone) {
+            await Profile.updateOne({ userId: interaction.user.id, guildId: interaction.guild.id }, {
                 '$set': {
-                    'friendship.belladone': 0
+                    'friendship.belladone': 1
                 }
             })
         } 
         
         if (profileData.friendship.belladone < 100) {
-            await Profile.updateOne({ userId: interaction.user.id }, {
+            await Profile.updateOne({ userId: interaction.user.id, guildId: interaction.guild.id }, {
                 '$set': {
-                    'economy.coins': profileData.economy.coins + 100000,
                     'friendship.belladone': profileData.friendship.belladone + 1
                 }
             });
 
             if (profileData.friendship.belladone + 1 == 100) {
-                await Profile.updateOne({ userId: interaction.user.id }, {
+                await Profile.updateOne({ userId: interaction.user.id, guildId: interaction.guild.id }, {
                     '$push': {
                         'profile.theme.allThemes': ['Atropa Belladonna — Thème de Belladone']
                     }
@@ -39,15 +37,15 @@ module.exports = {
             }
         }
 
-        await Profile.updateOne({ userId: interaction.user.id }, {
+        await Profile.updateOne({ userId: interaction.user.id, guildId: interaction.guild.id }, {
             '$set': {
                 'economy.coins': profileData.economy.coins + 100000,
             }
         });
 
-        await Quest.updateOne({ userId: interaction.user.id }, {
+        await Profile.updateOne({ userId: interaction.user.id, guildId: interaction.guild.id }, {
             '$set': {
-                'dailies.event': questData.dailies.event + 1,
+                'quests.dailies.event': profileData.quests.dailies.event + 1,
             }
         });
 
@@ -68,7 +66,7 @@ module.exports = {
             const item = await profileData.inventory[a] == undefined ? false : profileData.inventory[a].name == "Jeton du Casino Belladone" ? true : false
 
             if (item == true) {
-                await Profile.updateOne({ userId: interaction.user.id }, {
+                await Profile.updateOne({ userId: interaction.user.id, guildId: interaction.guild.id }, {
                     '$set' : {
                         [`inventory.${a}.quantity`] : profileData.inventory[a].quantity + 10
                     }
@@ -80,7 +78,7 @@ module.exports = {
 
             } else if (a == profileData.inventory.length) {
 
-                await Profile.updateOne({ userId: interaction.user.id }, {
+                await Profile.updateOne({ userId: interaction.user.id, guildId: interaction.guild.id }, {
                     '$push' : {
                         'inventory' : { name: "Jeton du Casino Belladone", quantity: 10, category: "Objets échangeables", itemEmote:"🪙"}
                     }

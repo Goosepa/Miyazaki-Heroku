@@ -1,13 +1,13 @@
 const ownerID = '638436496596008972';
-const { Profile, Theme, Quest } = require('../../models/index')
+const { Profile, Theme, Guild } = require('../../models/index')
 
 module.exports = {
     name: 'interactionCreate',
     once: false,
     async execute(client, interaction) {
-        const profileData = await Profile.findOne({ userId: interaction.user.id }) && await Profile.findOne({ guildId: interaction.guild.id });
+        const guildSettings = await Guild.findOne({ guildId: interaction.guild.id })
+        const profileData = await Profile.findOne({ userId: interaction.user.id, guildId: interaction.guild.id }) && await Profile.findOne({ guildId: interaction.guild.id });
         const themeData = await Theme.findOne({ guildId: interaction.guild.id })
-        const questData = await Quest.findOne({ userId: interaction.user.id }) && await Quest.findOne({ guildId: interaction.guild.id });
         const logChannel = client.channels.cache.get('995326497520893973')
 
         if (!profileData) {
@@ -42,26 +42,6 @@ module.exports = {
     
             await createTheme.save().then(p => logChannel.send(`Nouveau thème : ${p.id}`));
         };
-
-        if (!questData) {
-            const createQuest = new Quest({
-                guildId: interaction.guild.id,
-                userId: interaction.user.id,
-                username: interaction.user.username,
-                dailies: {
-                    messages: 0,
-                    mentions: 0,
-                    event: 0,
-                    commission: 0,
-                    date: 0,
-                    reward: 0
-                },
-                randomEvent: {
-                    belladone1: {'type': Number, 'default': 0}
-                }
-            });
-        await createQuest.save().then(p => logChannel.send(`Nouveau profil : ${p.id}`));
-        }
 
         if (interaction.isCommand() || interaction.isContextMenu()) {
             const command = client.commands.get(interaction.commandName);

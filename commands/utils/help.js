@@ -24,7 +24,7 @@ module.exports = {
         }
     ],
     async runInteraction(client, interaction) {
-        const profileData = await Profile.findOne({ userId: interaction.user.id });
+        const profileData = await Profile.findOne({ userId: interaction.user.id, guildId: interaction.guild.id });
         const themeData = await Theme.findOne({ themeName: profileData.profile.theme.usedTheme });
         const commandName = interaction.options.getString('command');
 

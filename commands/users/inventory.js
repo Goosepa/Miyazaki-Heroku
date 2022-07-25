@@ -1,5 +1,5 @@
 const { MessageEmbed } = require('discord.js');
-const { Profile, Theme, Quest, Item } = require('../../models/index');
+const { Profile } = require('../../models/index');
 const theme = require('../../models/theme');
 
 module.exports = {
@@ -7,22 +7,29 @@ module.exports = {
     category: 'users',
     permissions: ['CREATE_INSTANT_INVITE'],
     ownerOnly: false,
-    exemples: ['`/inventory signature : <nouvelle signature>`','`/inventory <@membre>`'],
-    usage: '`/inventory <option || membre>`',
-    description: 'La commande `/inventory` permet de montre votre profil ou de montrer celui du membre mentionné.',
+    exemples: ['`/inventory`',],
+    usage: '`/inventory`',
+    description: 'La commande `/inventory` permet d\'afficher votre inventaire.',
     async runInteraction(client, interaction) {
-        const profileData = await Profile.findOne({userId: interaction.user.id});
+        const profileData = await Profile.findOne({userId: interaction.user.id, guildId: interaction.guild.id});
 
         if (profileData.inventory.length == 0 || !profileData.inventory) {
-            return interaction.reply({ content: `Vous n'avez pas encore d'objets.`, ephemeral: true })
-        } else {
-            const themeData = await Theme.findOne({themeName: profileData.profile.theme.usedTheme});
-            const questData = await Quest.findOne({userId: interaction.user.id});
-
             const embed = new MessageEmbed()
             .setTitle(`Votre inventaire`)
-            .setColor(`${themeData.themeColor}`)
-            .setFooter({text:`Type d'objets en tout : ${profileData.inventory.length }`, iconURL: interaction.user.displayAvatarURL()})
+            .setDescription(`🌠 ${profileData.economy.coins} fragment(s) polaire(s)`)
+            .setColor("#ffd56c")
+            .setThumbnail('https://media.discordapp.net/attachments/1001221935386079353/1001233719136358492/inventory.png?width=671&height=671')
+            .setFooter({text: interaction.member.nickname || interaction.user.username, iconURL: interaction.user.displayAvatarURL()})
+            .setTimestamp()
+            return interaction.reply({ embeds: [embed], ephemeral: false })
+        } else {
+            const embed = new MessageEmbed()
+            .setTitle(`Votre inventaire`)
+            .setColor("#ffd56c")
+            .setDescription(`🌠 ${profileData.economy.coins} fragment(s) polaire(s)`)
+            .setThumbnail('https://media.discordapp.net/attachments/1001221935386079353/1001233719136358492/inventory.png?width=671&height=671')
+            .setFooter({ text: interaction.member.nickname || interaction.user.username, iconURL: interaction.user.displayAvatarURL() })
+            .setTimestamp()
 
             if (profileData.inventory.filter(x => x.category == 'Objets de quête') != 0) {
                 embed.addField(
@@ -31,14 +38,12 @@ module.exports = {
                 )
             }
 
-            if (profileData.inventory.filter(x => x.category == 'Objets échangeables') != 0 ) {
+            if (profileData.inventory.filter(x => x.category == 'Objets échangeables') != 0) {
                 embed.addField(
                     `Objets échangeables`,
                     `${profileData.inventory.filter(x => x.category == 'Objets échangeables').map(x => `${x.itemEmote} ${x.name} x${x.quantity}`).join('\n')}`
                 )
             }
-
-            profileData.inventory.filter(x => x.category == 'Objets échangeables').map(x => x.name).join('\n')
 
             return interaction.reply({ embeds: [ embed ] });
 

@@ -10,7 +10,7 @@ module.exports = {
     usage: '`/leaderboard`',
     description: 'La commande `/leaderboard` permet d\'afficher le classement des 10 membres les plus riches.',
     async runInteraction(client, interaction) {
-        const profileData = await Profile.findOne({ userId: interaction.user.id });
+        const profileData = await Profile.findOne({ userId: interaction.user.id, guildId: interaction.guild.id });
         
         const lb = await Profile.find({ guildId: interaction.guild.id }).sort({ "economy.coins": - 1 });
 
@@ -21,12 +21,6 @@ module.exports = {
         .setTitle(`${topThemeData.themeEmote} Les fortunes du Radiant Realm`)
         .setColor(`${topThemeData.themeColor}`)
 
-        for (let a = 0; a < lb.length; a++) {
-            const you = await interaction.guild.members.fetch(lb[a].userId) == interaction.user.id ? a+1 : null
-            if (you !== null) {
-                embed.setFooter({text: `${interaction.member.nickname || interaction.user.username} — Fragments polaires : ${profileData.economy.coins} — Votre classement : ${you}`, iconURL: interaction.user.displayAvatarURL()})
-            }
-        }
         for (let i = 0; i < lb.length && i < 10; i++) {
             const member = await interaction.guild.members.fetch(lb[i].userId)
             const memberData =  await Profile.findOne({ userId: member.id})

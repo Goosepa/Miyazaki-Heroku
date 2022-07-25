@@ -50,6 +50,31 @@ const profileSchema = mongoose.Schema({
     inventory: [],
     friendship: {
         belladone: {'type': Number, 'default': 0}
+    },
+    quests: {
+        dailies: {
+            combo: {'type:': Number, 'default': 0},
+            messages: {'type': Number, 'default': 0},
+            mentions: {'type': Number, 'default': 0},
+            event: {'type': Number, 'default': 0},
+            commission: {'type': Number, 'default': 0},
+            reward: {'type:': Number, 'default': 0}
+        },
+        mains: {
+            intro: {
+                save: {'type:': Number, 'default': 0},
+            }
+        },
+        hangouts: {
+            belladone1: {
+                save: {'type:': Number, 'default': 0},
+            }
+        }
+    },
+    casino: {
+        dailyPulls: {'type:': Number, 'default': 0},
+        pityPoints: {'type:': Number, 'default': 0},
+        pity: {'type:': Number, 'default': 0}
     }
     
 });
