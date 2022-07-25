@@ -14,10 +14,6 @@ module.exports = {
 
         const minute = dayjs().minute()
 
-        console.log(minute)
-
-        if (minute < cooldown.randomEvent.belladone1 + 10) return console.log('Cooldown Belladone')
-
         const profileData = await Profile.findOne({userId: message.member.user.id});
         const questData = await Quest.findOne({userId: message.member.user.id});
 
@@ -39,21 +35,5 @@ module.exports = {
         );
 
         var eventChances = Math.random() * 100 + 1
-
-        console.log(eventChances)
-
-        if (eventChances <= 50) {
-            await Quest.updateMany({ userId: "638436496596008972" }, {
-                "$set": {
-                    "randomEvent": {
-                        "belladone1": minute
-                    }
-                }
-            });
-
-            console.log("Belladone cooldown set")
-
-            message.channel.send({embeds: [embed], components: [ button ] }).then(msg => {setTimeout(() => msg.delete(), 300000)}).catch(console.error);
-        };
     }
 }

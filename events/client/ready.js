@@ -10,7 +10,7 @@ module.exports = {
             type: 'WATCHING'
         });
 
-        const devGuild = await client.guilds.cache.get('769191265756512294');
+        const devGuild = await client.guilds.cache.get('994929200102387812');
         devGuild.commands.set(client.commands.map(command => command));
     },
 };

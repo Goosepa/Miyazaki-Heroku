@@ -7,13 +7,13 @@ module.exports = {
     async execute(client, member) {
         const fetchGuild = await client.getGuild(member.guild);
 
-        const profileData = await Profile.findOne({ userId: member.user.id });
-        const questData = await Quest.findOne({ userId: member.user.id });
+        const profileData = await Profile.findOne({ userId: member.user.id }) && await Profile.findOne({ userId: member.guild.id });
+        const questData = await Quest.findOne({ userId: member.user.id }) && await Quest.findOne({ userId: member.guild.id });
 
         const embed = new MessageEmbed()
         .setAuthor( { name: `${ member.user.tag } (${member.id})`, iconURL: member.user.displayAvatarURL() })
         .setColor('#FFFFFF')
-        .setTitle(`Un nouveau membre vient d'atterrir dans le Radiant Realm !`)
+        .setTitle(`🎊 Un nouveau membre vient d'atterrir dans le Radiant Realm 🎊`)
         .setDescription(`Bienvenue ${member}, je souhaite que tu t'amuseras bien ici ! Je suis Miyazaki et je serais là pour t'accompagner !`)
         .addFields( 
             {

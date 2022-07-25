@@ -5,17 +5,10 @@ module.exports = {
     name: 'interactionCreate',
     once: false,
     async execute(client, interaction) {
-        let guildSettings = await client.getGuild(interaction.guild)
-        const profileData = await Profile.findOne({ userId: interaction.user.id })
+        const profileData = await Profile.findOne({ userId: interaction.user.id }) && await Profile.findOne({ guildId: interaction.guild.id });
         const themeData = await Theme.findOne({ guildId: interaction.guild.id })
-        const questData = await Quest.findOne({ userId: interaction.user.id })
+        const questData = await Quest.findOne({ userId: interaction.user.id }) && await Quest.findOne({ guildId: interaction.guild.id });
         const logChannel = client.channels.cache.get('995326497520893973')
-
-        if (!guildSettings) {
-            await client.createGuild(interaction.guild);
-            guildSettings = await client.getGuild(interaction.guild)
-            return interaction.reply(`Miyazaki a mis la jour la base de données du serveur !`)
-        }
 
         if (!profileData) {
             const createProfile = new Profile({
