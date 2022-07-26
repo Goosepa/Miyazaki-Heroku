@@ -77,7 +77,7 @@ module.exports = {
                         }
                     });
 
-                    if (profileData.quests.dailies.messages >=3) {
+                    if (profileData.quests.dailies.messages == 10) {
                         expToAdd = expToAdd + 250
                     }
                 }
@@ -89,7 +89,7 @@ module.exports = {
                         }
                     });
 
-                    if (profileData.quests.dailies.mentions >= 3) {
+                    if (profileData.quests.dailies.mentions == 3) {
                         expToAdd = expToAdd + 250
                     }
                 }
