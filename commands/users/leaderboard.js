@@ -23,7 +23,7 @@ module.exports = {
 
         for (let i = 0; i < lb.length && i < 10; i++) {
             const member = await interaction.guild.members.fetch(lb[i].userId)
-            const memberData =  await Profile.findOne({ userId: member.id})
+            const memberData =  await Profile.findOne({ userId: member.id, guildId: interaction.guild.id})
             const memberThemeData = await Theme.findOne({ themeName: memberData.profile.theme.usedTheme })
 
             if (i == 0) {
