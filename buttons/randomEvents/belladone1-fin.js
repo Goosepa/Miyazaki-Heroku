@@ -32,7 +32,7 @@ module.exports = {
         );
 
         thread.send({ embeds: [embed], components: [button] }).then(message =>
-            setTimeout(() => message.edit({ embeds: [embed.setImage(`https://media.discordapp.net/attachments/999092620796112946/1001538297253859419/Belladone_Happy.png?width=1342&height=671`)]}), 2000)
+            setTimeout(() => message.edit({ embeds: [embed.setImage(`https://media.discordapp.net/attachments/999092620796112946/1001538297253859419/Belladone_Happy.png?width=1342&height=671`)]}), 5000)
         )
     }
 }
