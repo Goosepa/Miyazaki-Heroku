@@ -13,36 +13,24 @@ module.exports = {
 
         const embed = new MessageEmbed()
         .setTitle(`Belladone — Directrice du Casino Belladone`)
-        .setDescription(`Je suis contente que cet endroit te plaise ♥ \n\nSi tu as un peu de temps, n'hésite pas à passer au casino ! Tu ne peux pas le rater: c'est le bâtiment le plus grand tout devant, alors je compte sur toi, héhé.`)
-        .setColor("0e0524")
-        .setThumbnail('https://cdn.discordapp.com/attachments/999092620796112946/999828054190854225/Belladone_1.png?width=671&height=671')
-        .setFooter({text: `🔁 Passage automatique au prochain dialogue`})
-
-        const embed2 = new MessageEmbed()
-        .setTitle(`Miyazaki — Super guide`)
-        .setDescription(`(Euh... ${interaction.member.nickname || interaction.user.username}, souviens toi de ce qu'on nous a dit: il ne faut pas faire confiance à cette femme !!! Si tu vas au casino, tu vas devenir accro à coup sûr !!!)`)
-        .setColor("FFFFFF")
+        .setDescription(`Quand je vois tous les clients s'amuser dans mon casino, je me dis que le principal ce n'est pas le gain en lui même mais la satisfaction d'avoir gagné. Les jeux de hasard proccurent la joie et voir ça, c'est vraiment passionant.`)
         .addFields(
             {
-                name: `Réponses possibles :`, value: `1. Désolé mais j'ai déjà prévu des trucs...\n\n2. Je n'ai pas beaucoup l'occasion de jouer aux jeux d'argent, ça va être drôle !`
+                name: `Réponses possibles :`, value: `1. Le principal c'est surtout l'argent...`
             }
         )
-        .setThumbnail('https://media.discordapp.net/attachments/996095065015451742/999732265301069964/Logo_Radiant_Realm.png?width=671&height=671')
+        .setColor("0e0524")
+        .setImage('https://media.discordapp.net/attachments/999092620796112946/1001538142869913660/Belladone_Chill.png?width=1342&height=671')
         .setFooter({text: `✅ Choix pour passer au prochain dialogue`})
 
         const button = new MessageActionRow()
         .addComponents(
             new MessageButton()
                 .setCustomId('belladone1-3')
-                .setLabel('Pas de casino')
-                .setStyle('SUCCESS'),
-            new MessageButton()
-                .setCustomId('belladone1-4')
-                .setLabel('Casino')
-                .setStyle('DANGER')
+                .setLabel(`C'est surtout l'argent...`)
+                .setStyle('PRIMARY'),
         );
 
-        thread.send({ embeds: [embed] }).then(await setTimeout(() => thread.bulkDelete(100), 10000));
-        await setTimeout(() => thread.send({ embeds: [embed2], components: [ button ] }), 10000);
+        return thread.send({ embeds: [embed], components: [button] });
     }
 }

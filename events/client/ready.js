@@ -17,7 +17,7 @@ module.exports = {
         var resetDailies = new CronJob(
             '0 0 0 * * *',
             async function() {
-                const cutomMessage = [ `Et si on rendait visite à Belladone aujourd'hui ? On pourra lui apporter des gâteaux en passant !`, `Ryle n'avait pas dit qu'il avait besoin de nous pour quelque chose ? Bon, vu comment il est, je pense qu'il veut surtout nous refiler son boulot.`, `Tu penses que Ryle et Jean sont au salon de thé aujourd'hui ? Si ça se trouve y'aura même Belladone.`, `Yume, Las et Lina ont une évaluation aujourd'hui. Mmmmh... Je parie que Las aura 20, Lina 19.5 et Yume 3. Comme d'habitude quoi.`, `Aujourd'hui je me sens chanceux ! Je vais tenter ma chance au casino.` ]
+                const cutomMessage = [ `Et si on rendait visite à Belladone aujourd'hui ? On pourra lui apporter des gâteaux en passant !`, `Ryle n'avait pas dit qu'il avait besoin de nous pour quelque chose ? Bon, vu comment il est, je pense qu'il veut surtout nous refiler son boulot.`, `Tu penses que Ryle et Jean sont au salon de thé aujourd'hui ? Si ça se trouve y'aura même Belladone.` ]
         
                 var customMessageSelect = Math.floor(Math.random() * cutomMessage.length)
         

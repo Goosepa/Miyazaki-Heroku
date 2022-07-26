@@ -1,6 +1,6 @@
 const path = require("path");
 const ownerID = '638436496596008972';
-const { Profile, Theme } = require('../../models/index')
+const { Profile, Theme, Guild } = require('../../models/index')
 const { MessageEmbed, MessageActionRow, MessageButton, Collection } = require('discord.js');
 const interactionCreate = require("../client/interactionCreate");
 const cooldown = [ ]
@@ -34,7 +34,7 @@ module.exports = {
             var event = Math.floor(Math.random() * randomEventsList.length)
             var eventChances = Math.floor(Math.random() * 100)
 
-            if (eventChances < 5) {
+            if (eventChances < 5 && message.author.id) {
                 if (message.channel.isThread()) return;
 
                 if (cooldown.includes('cooldown')) {
@@ -45,9 +45,9 @@ module.exports = {
                     if (randomEventsList[event] == "belladone-1") {
                         const embed = new MessageEmbed()
                         .setTitle(`Belladone — Directrice du Casino Belladone`)
-                        .setDescription(`Oh~ Je ne pensais pas te croiser de sitôt. Héhé, c'est le moment pour moi d'ajouter un nouveau membre fidèle à mon casino ♥ `)
+                        .setDescription(`Eh bien ! qu'est-ce que je vois là ? Ce ne serais pas mon cher ami/ma chère amie ? Tu as de la chance, j'ai beaucoup de temps libre aujourd'hui (enfin comme tous les jours quoi) ! `)
                         .setColor("0e0524")
-                        .setThumbnail('https://cdn.discordapp.com/attachments/999092620796112946/999828054677405737/Belladone_2.png?width=671&height=671')
+                        .setImage('https://media.discordapp.net/attachments/999092620796112946/1001538297253859419/Belladone_Happy.png?width=1342&height=671')
                         .setFooter({text: `👋 Déclencher l'événement aléatoire`})
 
                         const button = new MessageActionRow()
@@ -108,7 +108,10 @@ module.exports = {
                         }
                     });
 
-                    message.react('🆙')
+                    const guild = await Guild.findOne({ id: message.guild.id })
+                    const levelChannel = client.channels.cache.get(guild.levelChannel)
+
+                    return levelChannel.send(`Félicitation ${message.member}, tu as monté au niveau ${profileData.level.level + 1} ✨`)
                 };
             }
         }

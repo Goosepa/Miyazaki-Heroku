@@ -13,9 +13,9 @@ module.exports = {
 
         const embed = new MessageEmbed()
         .setTitle(`Belladone — Directrice du Casino Belladone`)
-        .setDescription(`Héhé, ça fait pas longtemps qu'on se connaît mais je t'aime déjà beaucoup ! Tu me rappelles un peu mon petit frère/ma petite soeur ♥ \n\n Je ne t'embête pas plus longtemps, à très bientôt ♥`)
+        .setDescription(`Inutile et insignifiant... Tout dépend d'où est investi l'argent mais ça, c'est un secret. Haha, merci d'avoir discuté avec moi. Tiens, 10 jetons, j'espère te revoir bientôt.`)
         .setColor("0e0524")
-        .setThumbnail('https://cdn.discordapp.com/attachments/999092620796112946/999828054190854225/Belladone_1.png?width=671&height=671')
+        .setImage('https://media.discordapp.net/attachments/999092620796112946/1001577374640517310/Belladone.png?width=1342&height=671')
         .addFields(
             {
                 name: `Récompenses de l'événement aléatoire :`, value: `1 point d'affinité avec Belladone, 10 jetons du Casino Belladone, 100000 fragments polaires`
@@ -31,6 +31,8 @@ module.exports = {
                 .setStyle('SUCCESS'),
         );
 
-        thread.send({ embeds: [embed], components: [ button ] });
+        thread.send({ embeds: [embed], components: [button] }).then(message =>
+            setTimeout(() => message.edit({ embeds: [embed.setImage(`https://media.discordapp.net/attachments/999092620796112946/1001538297253859419/Belladone_Happy.png?width=1342&height=671`)]}), 2000)
+        )
     }
 }

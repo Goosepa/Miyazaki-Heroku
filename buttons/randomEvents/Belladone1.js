@@ -21,12 +21,12 @@ module.exports = {
 
         const embed = new MessageEmbed()
         .setTitle(`Belladone — Directrice du Casino Belladone`)
-        .setDescription(`Alors, ton séjour ici se passe bien ? Le déménagement n'a pas été trop compliqué ?`)
+        .setDescription(`Tu es allé(e) récemment au casino ? Héhé, j'imagine que tu n'as pas été très chanceux/chanceuse. Ne t'inquiète pas, un gros gain va arriver à un moment où à un autre si tu continues à jouer. En plus, les points de pitié peuvent aussi t'aider à avoir quelque chose que tu veux !`)
         .setColor("0e0524")
-        .setThumbnail('https://cdn.discordapp.com/attachments/999092620796112946/999828054190854225/Belladone_1.png?width=671&height=671')
+        .setImage('https://media.discordapp.net/attachments/999092620796112946/1001538297253859419/Belladone_Happy.png?width=1342&height=671')
         .addFields(
             {
-                name: `Réponse possible :`, value: `1. Tout se passe bien pour l'instant.`
+                name: `Réponse possible :`, value: `1. Heureusement que les points de pitié existent...`
             }
         )
         .setFooter({text: `✅ Choix pour passer au prochain dialogue`})
@@ -35,10 +35,10 @@ module.exports = {
         .addComponents(
             new MessageButton()
                 .setCustomId('belladone1-1')
-                .setLabel('Tout se passe bien')
+                .setLabel('Points de pitié')
                 .setStyle('PRIMARY'),
         );
 
-        thread.send({ embeds: [embed], components: [ button ] });
+        return thread.send({ embeds: [embed], components: [ button ] });
     }
 }
