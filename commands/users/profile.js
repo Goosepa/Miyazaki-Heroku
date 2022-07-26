@@ -78,18 +78,9 @@ module.exports = {
                 },
                 {
                     name: `${themeData.themeEmote} Messages privés`, value: `${mentionProfileData.profile.mp == 0 ? `🟩 Ouverts` : mentionProfileData.profile.mp == 1 ? `🟧 Sur demande` : `🟥 fermés`}`, inline : true
-                }
+                },
+                {name :`${themeData.themeEmote} Fragments polaires`, value:`🌠 ${mentionProfileData.economy.coins}`}
             )
-
-            const lb = await Profile.find({ guildId: interaction.guild.id }).sort({ "economy.coins": - 1 });
-
-            for (let a = 0; a < lb.length; a++) {
-                const you = await interaction.guild.members.fetch(lb[a].userId) == mentionUser.id ? a + 1 : null
-
-                if (you) {
-                    embed.addFields({name :`${themeData.themeEmote} Fragments polaires`, value:`Fragments polaires : ${mentionProfileData.economy.coins} — Son classement : ${you}`})
-                }
-            }
             embed.addField(`${themeData.themeEmote} Niveau ${mentionProfileData.level.level}`, `${expBar}⬆️ (${mentionProfileData.level.experience}/${expToLevelUp})`)
             embed.setTimestamp()
             embed.setImage(`${themeData.themeImage}`)

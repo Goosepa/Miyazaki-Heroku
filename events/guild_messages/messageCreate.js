@@ -13,7 +13,7 @@ module.exports = {
         if (message.channel.type === "dm") return;
 
         if (message.guild) {
-            const profileData = await Profile.findOne({ userId: message.member.user.id, guildId: message.guild.id }) && await Profile.findOne({ guildId: message.guild.id });
+            const profileData = await Profile.findOne({ userId: message.member.user.id, guildId: message.guild.id });
 
             const logChannel = client.channels.cache.get('995326497520893973')
 
@@ -34,7 +34,7 @@ module.exports = {
             var event = Math.floor(Math.random() * randomEventsList.length)
             var eventChances = Math.floor(Math.random() * 100)
 
-            if (eventChances < 15) {
+            if (eventChances < 5) {
                 if (message.channel.isThread()) return;
 
                 if (cooldown.includes('cooldown')) {
