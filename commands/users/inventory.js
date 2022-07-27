@@ -45,6 +45,13 @@ module.exports = {
                 )
             }
 
+            if (profileData.inventory.filter(x => x.category == 'Collectionnables') != 0) {
+                embed.addField(
+                    `Collectionnables`,
+                    `${profileData.inventory.filter(x => x.category == 'Collectionnables').map(x => `${x.itemEmote} ${x.name} x${x.quantity}`).join('\n')}`
+                )
+            }
+
             return interaction.reply({ embeds: [ embed ] });
 
         }

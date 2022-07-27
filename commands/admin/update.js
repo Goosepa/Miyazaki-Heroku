@@ -9,35 +9,16 @@ module.exports = {
     usage: '`/update`',
     description: 'La commande `/update` permet de mettre à jour les données de la base de données.',
     async runInteraction(client, interaction) {
-        await Profile.updateMany({}, {
-            "$set" : {
-                'quests': {
-                    'dailies': {
-                        'combo': 0,
-                        'messages': 0,
-                        'mentions': 0,
-                        'event': 0,
-                        'commission': 0,
-                        'reward': 0
-                    },
-                    'mains': {
-                        'intro': {
-                            'save': 0,
-                        }
-                    },
-                    'hangouts': {
-                        'belladone1': {
-                            'save': 0,
-                        }
-                    }
-                },
-                'casino': {
-                    'dailyPulls': 0,
-                    'pityPoints': 0,
-                    'pity': 0
-                }
-            }
+        const newItem = await new Item({
+            guildId: '769191265756512294',
+            itemName: `Gâteau d'anniversaire`,
+            itemDescription: `Un petit gâteau pas top visuellement mais préparé avec amour !`,
+            itemId: 2,
+            itemCategory: 'Collectionnable',
+            itemEmote: '🎂'
         });
+
+        await newItem.save();
 
         interaction.reply(`Miyazaki a mis à jour la base de données !`)
     }

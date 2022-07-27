@@ -1,6 +1,7 @@
 const { Profile, Theme } = require('../../models/index');
 var CronJob = require('cron').CronJob;
 const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
+const dayjs = require('dayjs');
 
 module.exports = {
     name: 'ready',
@@ -79,6 +80,63 @@ module.exports = {
             true,
             'Europe/Paris'
         );
+
+        var birthday = new CronJob(
+            '0 11 22 * * *',
+            async function() {
+                const day = dayjs().date()
+                const month = dayjs().month() + 1
+                const birthdayUser = await Profile.find({ 'profile.birthday.day': day, 'profile.birthday.month': month, guildId: '769191265756512294' });
+
+                for (let a = 0; a < birthdayUser.length; a++) {
+                    const member = await client.users.fetch(birthdayUser[a].userId).catch(console.error);
+        
+                    const embed = new MessageEmbed()
+                    .setTitle(`🎉 Joyeux anniversaire, ${member.nickname || member.username} !!! 🎉`)
+                    .setDescription(`Waouh, j'arrive pas à croire que c'est déjà ton anniversaire ! Pour l'occasion, je t'ai préparé des cadeaux, ouvre les vite ! ✨\n\n Et si non allait à la rencontre de nos amis ? Si ça se trouve, ils vont nous donner des cadeaux !!! Hem, hem, je veux dire te donner des cadeaux. ✨`)
+                    .setColor('FFFFFF')
+                    .setThumbnail(member.displayAvatarURL())
+                    .setFields(
+                        { name: `📩 Vos cadeaux d'anniversaire`, value: `🎂 Un beau gâteau préparé avec soin, 🌠 200000 fragments polaires` }
+                    )
+                    .setFooter({ text: `📩 Réception automatique des cadeaux d'anniversaire` });
+
+                    await Profile.updateOne({ userId: birthdayUser[a].userId, guildId: '769191265756512294' }, {
+                        '$set': {
+                            'economy.coins': birthdayUser[a].economy.coins + 200000
+                        }
+                    });
+
+                    const item = birthdayUser[a].inventory.find(item => item.name == `Gâteau d'anniversaire`);
+                    const itemIndex = birthdayUser[a].inventory.indexOf(item);
+
+                    if (itemIndex != -1) {
+                        await Profile.updateOne({ userId: birthdayUser[a].userId, guildId: '769191265756512294' }, {
+                            '$set': {
+                                [`inventory.${itemIndex}.quantity`]: birthdayUser[a].inventory[itemIndex].quantity + 1
+                            }
+                        });
+                    } else {
+                        await Profile.updateOne({ userId: birthdayUser[a].userId, guildId: '769191265756512294' }, {
+                            '$push': {
+                                'inventory': { name: "Gâteau d'anniversaire", quantity: 1, category: "Collectionnables", itemEmote:"🎂"}
+                            }
+                        });
+                    }
+
+                    client.channels.fetch('770628068632559628').then(channel => {
+                        channel.send({content: `||<@&789141086085578784>||`, embeds: [ embed ] }).then(message => {
+                            message.react('🎂')
+                            message.react('🎉')
+                            message.react('🎊')
+                        });
+                    });
+                };
+            },
+            null,
+            true,
+            'Europe/Paris'
+        )
         
 
         const devGuild = await client.guilds.cache.get('994929200102387812');
