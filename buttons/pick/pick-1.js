@@ -28,7 +28,7 @@ module.exports = {
             .setThumbnail('https://media.discordapp.net/attachments/1001221935386079353/1001233719136358492/inventory.png?width=671&height=671')
             .setFooter({text: `🔁 Supression du message automatique après 5 secondes`})
     
-            return interaction.reply({ embeds: [embed], ephemeral: true });
+            return interaction.reply({ embeds: [embed] }).then(setTimeout(() => interaction.deleteReply(), 5000))
         };
     }
 }
