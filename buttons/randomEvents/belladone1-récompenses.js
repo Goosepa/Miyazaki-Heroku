@@ -72,7 +72,7 @@ module.exports = {
                 }
             });
 
-            embed.addFields({ name: `${themeData.themeEmote} 10 jetons du Casino Belladone :`, value: `${profileData.inventory[a].quantity} ➡️ ${profileData.inventory[a].quantity + 10}`, inline: true })
+            embed.addFields({ name: `${themeData.themeEmote} 10 jetons du Casino Belladone :`, value: `${profileData.inventory[itemIndex].quantity} ➡️ ${profileData.inventory[itemIndex].quantity + 10}`, inline: true })
 
             return interaction.reply({embeds: [embed]});
         } else {

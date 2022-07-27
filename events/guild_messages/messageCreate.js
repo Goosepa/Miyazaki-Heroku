@@ -37,7 +37,7 @@ module.exports = {
                     var event = Math.floor(Math.random() * randomEventsList.length)
                     var eventChances = Math.floor(Math.random() * 100)
 
-                    if (eventChances < 100 && message.author.id == "638436496596008972") {
+                    if (eventChances < 5) {
                         if (cooldown.includes('cooldown')) {
                         } else {
                             cooldown.push('cooldown');
