@@ -62,32 +62,29 @@ module.exports = {
         .setColor(`${themeData.themeColor}`)
         .setFooter({text: `🔁 Le fil sera automatiquement supprimé dans 5 minutes`})
 
-        for (let a = 0; a < profileData.inventory.length || profileData.inventory.length == 0; a++) {
-            const item = await profileData.inventory[a] == undefined ? false : profileData.inventory[a].name == "Jeton du Casino Belladone" ? true : false
+        const item = profileData.inventory.find(item => item.name == `Jeton du Casino Belladone`);
+        const itemIndex = profileData.inventory.indexOf(item);
 
-            if (item == true) {
-                await Profile.updateOne({ userId: interaction.user.id, guildId: interaction.guild.id }, {
-                    '$set' : {
-                        [`inventory.${a}.quantity`] : profileData.inventory[a].quantity + 10
-                    }
-                });
+        if (itemIndex != -1) {
+            await Profile.updateOne({ userId: interaction.user.id, guildId: interaction.guild.id }, {
+                '$set' : {
+                    [`inventory.${a}.quantity`] : profileData.inventory[itemIndex].quantity + 10
+                }
+            });
 
-                embed.addFields({ name: `${themeData.themeEmote} 10 jetons du Casino Belladone :`, value: `${profileData.inventory[a].quantity} ➡️ ${profileData.inventory[a].quantity + 10}`, inline: true })
+            embed.addFields({ name: `${themeData.themeEmote} 10 jetons du Casino Belladone :`, value: `${profileData.inventory[a].quantity} ➡️ ${profileData.inventory[a].quantity + 10}`, inline: true })
 
-                return interaction.reply({embeds: [embed]});
+            return interaction.reply({embeds: [embed]});
+        } else {
+            await Profile.updateOne({ userId: interaction.user.id, guildId: interaction.guild.id }, {
+                '$push' : {
+                    'inventory' : { name: "Jeton du Casino Belladone", quantity: 10, category: "Objets échangeables", itemEmote:"🪙"}
+                }
+            });
 
-            } else if (a == profileData.inventory.length) {
+            embed.addFields({ name: `${themeData.themeEmote} 10 jetons du Casino Belladone :`, value: `0 ➡️ 10`, inline: true })
 
-                await Profile.updateOne({ userId: interaction.user.id, guildId: interaction.guild.id }, {
-                    '$push' : {
-                        'inventory' : { name: "Jeton du Casino Belladone", quantity: 10, category: "Objets échangeables", itemEmote:"🪙"}
-                    }
-                });
-
-                embed.addFields({ name: `${themeData.themeEmote} 10 jetons du Casino Belladone :`, value: `0 ➡️ 10`, inline: true })
-
-                return interaction.reply({embeds: [embed]});
-            }
+            return interaction.reply({embeds: [embed]});
         }
     }
 }
