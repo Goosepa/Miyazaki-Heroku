@@ -1,7 +1,7 @@
 const path = require("path");
 const ownerID = '638436496596008972';
-const { Profile, Theme, Guild } = require('../../models/index')
-const { MessageEmbed, MessageActionRow, MessageButton, Collection } = require('discord.js');
+const { Profile, Guild } = require('../../models/index')
+const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
 const interactionCreate = require("../client/interactionCreate");
 const cooldown = [ ]
 
@@ -29,44 +29,47 @@ module.exports = {
             };
 
 //random event
-            const randomEventsList = [ "belladone-1" ]
 
-            var event = Math.floor(Math.random() * randomEventsList.length)
-            var eventChances = Math.floor(Math.random() * 100)
+            if (!message.channel.isThread()) {
+                if (message.channel.topic.includes('– Événements aléatoires : oui')) {
+                    const randomEventsList = [ "belladone-1" ]
 
-            if (eventChances < 5 && message.author.id) {
-                if (message.channel.isThread()) return;
+                    var event = Math.floor(Math.random() * randomEventsList.length)
+                    var eventChances = Math.floor(Math.random() * 100)
 
-                if (cooldown.includes('cooldown')) {
-                } else {
-                    cooldown.push('cooldown');
-                    setTimeout(() => cooldown.pop(), 900000)
+                    if (eventChances < 5) {
+                        if (cooldown.includes('cooldown')) {
+                        } else {
+                            cooldown.push('cooldown');
+                            setTimeout(() => cooldown.pop(), 900000)
 
-                    if (randomEventsList[event] == "belladone-1") {
-                        const embed = new MessageEmbed()
-                        .setTitle(`Belladone — Directrice du Casino Belladone`)
-                        .setDescription(`Eh bien ! qu'est-ce que je vois là ? Ce ne serais pas mon cher ami/ma chère amie ? Tu as de la chance, j'ai beaucoup de temps libre aujourd'hui (enfin comme tous les jours quoi) ! `)
-                        .setColor("0e0524")
-                        .setImage('https://media.discordapp.net/attachments/999092620796112946/1001538297253859419/Belladone_Happy.png?width=1342&height=671')
-                        .setFooter({text: `👋 Déclencher l'événement aléatoire`})
+                            if (randomEventsList[event] == "belladone-1") {
+                                const embed = new MessageEmbed()
+                                .setTitle(`Belladone — Directrice du Casino Belladone`)
+                                .setDescription(`Eh bien ! qu'est-ce que je vois là ? Ce ne serais pas mon cher ami/ma chère amie ? Tu as de la chance, j'ai beaucoup de temps libre        aujourd'hui (enfin comme tous les jours quoi) ! `)
+                                .setColor("0e0524")
+                                .setImage('https://media.discordapp.net/attachments/999092620796112946/1001538297253859419/Belladone_Happy.png?width=1342&height=671')
+                                .setFooter({text: `👋 Déclencher l'événement aléatoire`})
 
-                        const button = new MessageActionRow()
-                        .addComponents(
-                            new MessageButton()
-                                .setCustomId('belladone1')
-                                .setLabel('👋 Salut Belladone')
-                                .setStyle('SUCCESS')
-                        );
+                                const button = new MessageActionRow()
+                                .addComponents(
+                                    new MessageButton()
+                                        .setCustomId('belladone1')
+                                        .setLabel('👋 Salut Belladone')
+                                        .setStyle('SUCCESS')
+                                );
 
-                        const messageToDelete = await message.channel.send({ embeds: [embed], components: [ button ] })
-                        return await setTimeout(() => messageToDelete.delete(), 300000)
+                                const messageToDelete = await message.channel.send({ embeds: [embed], components: [ button ] })
+                                await setTimeout(() => messageToDelete.delete(), 300000)
+                            }
+                        }
                     }
                 }
             }
 
 //level.update1
 
-            if (profileData) {
+            if (message.channel.isThread() || message.channel.topic.includes(`– Gain de points d'expérience : oui`)) {
                 const expToLevelUp = ( profileData.level.level > 34 ? (profileData.level.level + 1) * 3000 : (profileData.level.level + 1) * 1000 );
                 var expToAdd = 100
 

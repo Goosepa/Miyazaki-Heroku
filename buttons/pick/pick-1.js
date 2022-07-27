@@ -22,7 +22,7 @@ module.exports = {
             });
     
             const embed = new MessageEmbed()
-            .setTitle(`📩 10000 Fragments polaires reçus`)
+            .setTitle(`📩 ${interaction.member.nickname || interaction.user.username} a reçu 10000 Fragments polaires`)
             .setDescription(`🌠 Fragments polaires : ${profileData.economy.coins} ➡️ ${profileData.economy.coins + 10000}`)
             .setColor("FFFFFF")
             .setThumbnail('https://media.discordapp.net/attachments/1001221935386079353/1001233719136358492/inventory.png?width=671&height=671')
