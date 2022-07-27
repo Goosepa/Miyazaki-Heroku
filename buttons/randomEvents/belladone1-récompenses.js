@@ -68,7 +68,7 @@ module.exports = {
         if (itemIndex != -1) {
             await Profile.updateOne({ userId: interaction.user.id, guildId: interaction.guild.id }, {
                 '$set' : {
-                    [`inventory.${a}.quantity`] : profileData.inventory[itemIndex].quantity + 10
+                    [`inventory.${itemIndex}.quantity`] : profileData.inventory[itemIndex].quantity + 10
                 }
             });
 
