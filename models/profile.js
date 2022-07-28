@@ -5,6 +5,8 @@ const profileSchema = mongoose.Schema({
     userId: String,
     username: String,
     profile: {
+        likes: [],
+        gifts: [],
         birthday: {
             day: {
                 'type': Number,

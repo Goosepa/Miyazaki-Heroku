@@ -27,7 +27,8 @@ module.exports = {
                 var customMessageSelect = Math.floor(Math.random() * customMessage.length)
 
                 const embed = new MessageEmbed()
-                .setTitle(customMessage[customMessageSelect])
+                .setTitle(`Miyazaki — Super Guide`)
+                .setDescription(customMessage[customMessageSelect])
                 .setFooter({ text: `📩 Récupérez les fragments polaires` })
                 .setColor(`FFFFFF`)
                 .setTimestamp()

@@ -1,5 +1,5 @@
-const { MessageEmbed } = require('discord.js');
-const { Profile, Theme } = require('../../models/index')
+const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
+const { Profile, Theme, Guild } = require('../../models/index')
 
 module.exports = {
     name: 'profile',
@@ -38,7 +38,7 @@ module.exports = {
     async runInteraction(client, interaction) {
 
         if (interaction.options.getUser('member')) {
-            const mentionUser = interaction.options.getUser('member')
+            const mentionUser = interaction.options.getUser('member');
             const mentionProfileData = await Profile.findOne({ userId: mentionUser.id, guildId: interaction.guild.id });
 
             if (!mentionProfileData) return interaction.reply({content: `Je suis désolé, Miyazaki n'a pas trouvé le profile de ${mentionUser}... Il se peut qu'il n'en ait pas encore.`, ephemeral: true});
@@ -85,8 +85,27 @@ module.exports = {
             embed.setTimestamp()
             embed.setImage(`${themeData.themeImage}`)
             embed.setFooter({ text: `Thème : ${themeData.themeName}` });
+
+            const button = new MessageActionRow()
+            .addComponents(
+                new MessageButton()
+                    .setCustomId('like-profile')
+                    .setLabel('👍 Aimer le profil')
+                    .setStyle('SUCCESS'),
+                new MessageButton()
+                    .setCustomId('send-gift-profile')
+                    .setLabel('🎁 Envoyer un cadeau')
+                    .setStyle('SUCCESS'),
+            );
     
-            interaction.reply({ embeds : [embed] });
+            let message = await interaction.reply({ embeds : [embed], components: [button], fetchReply: true });
+
+            await Guild.updateOne({ id: interaction.guild.id }, {
+                '$push': {
+                    'profileData': { interactionMessageId: message.id, mentionMember: mentionUser }
+                }
+            });
+            
         } else if (interaction.options.getString('signature')) {
             const profileData = await Profile.findOne({ userId: interaction.user.id, guildId: interaction.guild.id })
             const newSignature = interaction.options.getString('signature')

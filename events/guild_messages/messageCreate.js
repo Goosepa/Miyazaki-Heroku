@@ -25,7 +25,7 @@ module.exports = {
                     'profile.theme.allThemes': ['Thème par défaut']
                 });
         
-                await createProfile.save().then(p => logChannel.send(`Nouveau profil : ${p.id}`));   
+                return await createProfile.save().then(p => logChannel.send(`Nouveau profil : ${p.id}`));   
             };
 
 //random event

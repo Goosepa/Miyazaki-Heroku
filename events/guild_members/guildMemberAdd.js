@@ -7,7 +7,7 @@ module.exports = {
     async execute(client, member) {
         const fetchGuild = await client.getGuild(member.guild);
 
-        const profileData = await Profile.findOne({ userId: member.user.id }) && await Profile.findOne({ userId: member.guild.id });
+        const profileData = await Profile.findOne({ userId: member.user.id, guildId: member.guild.id });
 
         const embed = new MessageEmbed()
         .setAuthor( { name: `${ member.user.tag } (${member.id})`, iconURL: member.user.displayAvatarURL() })
