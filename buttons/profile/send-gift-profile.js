@@ -49,7 +49,7 @@ module.exports = {
                     const embed = new MessageEmbed()
                     .setTitle(`🎁 Waouh, tu as reçu un cadeau !`)
                     .setDescription(`C'est un cadeau de la part du membre ${interaction.member.nickname || interaction.user.username} ! Ouvre le vite !`)
-                    .setFooter({ text: `🔁 Réception automatique du cadeau.` })
+                    .setFooter({ text: `🔁 Réception automatique du cadeau` })
                     .setColor('FFFFFF')
                     .addFields(
                         { name: `📩 Contenu du cadeau`, value: `${gifts[whichGift]}` }
@@ -75,7 +75,7 @@ module.exports = {
                     const embed = new MessageEmbed()
                     .setTitle(`🎁 Waouh, tu as reçu un cadeau !`)
                     .setDescription(`C'est un cadeau de la part du membre ${interaction.member} ! Ouvre le vite !`)
-                    .setFooter({ text: `🔁 Réception automatique du cadeau.` })
+                    .setFooter({ text: `🔁 Réception automatique du cadeau` })
                     .addFields(
                         { name: `📩 Contenu du cadeau`, value: `${gifts[whichGift]}` }
                     )
