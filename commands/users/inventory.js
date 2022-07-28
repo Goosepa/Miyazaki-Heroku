@@ -18,7 +18,7 @@ module.exports = {
             .setTitle(`Votre inventaire`)
             .setDescription(`🌠 ${profileData.economy.coins} fragment(s) polaire(s)`)
             .setColor("#ffd56c")
-            .setThumbnail('https://media.discordapp.net/attachments/1001221935386079353/1001233719136358492/inventory.png?width=671&height=671')
+            .setThumbnail('https://media.discordapp.net/attachments/1001221935386079353/1002185148265140334/inventory.png?width=671&height=671')
             .setFooter({text: interaction.member.nickname || interaction.user.username, iconURL: interaction.user.displayAvatarURL()})
             .setTimestamp()
             return interaction.reply({ embeds: [embed], ephemeral: false })
@@ -27,7 +27,7 @@ module.exports = {
             .setTitle(`Votre inventaire`)
             .setColor("#ffd56c")
             .setDescription(`🌠 ${profileData.economy.coins} fragment(s) polaire(s)`)
-            .setThumbnail('https://media.discordapp.net/attachments/1001221935386079353/1001233719136358492/inventory.png?width=671&height=671')
+            .setThumbnail('https://media.discordapp.net/attachments/1001221935386079353/1002185148265140334/inventory.png?width=671&height=671')
             .setFooter({ text: interaction.member.nickname || interaction.user.username, iconURL: interaction.user.displayAvatarURL() })
             .setTimestamp()
 

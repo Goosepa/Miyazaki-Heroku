@@ -25,7 +25,7 @@ module.exports = {
             .setTitle(`📩 ${interaction.member.nickname || interaction.user.username} a reçu 10000 Fragments polaires`)
             .setDescription(`🌠 Fragments polaires : ${profileData.economy.coins} ➡️ ${profileData.economy.coins + 10000}`)
             .setColor("FFFFFF")
-            .setThumbnail('https://media.discordapp.net/attachments/1001221935386079353/1001233719136358492/inventory.png?width=671&height=671')
+            .setThumbnail('https://media.discordapp.net/attachments/1001221935386079353/1002185148265140334/inventory.png?width=671&height=671')
             .setFooter({text: `🔁 Supression du message automatique après 5 secondes`})
     
             return interaction.reply({ embeds: [embed] }).then(setTimeout(() => interaction.deleteReply(), 5000))

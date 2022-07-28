@@ -74,12 +74,14 @@ module.exports = {
             .setColor(`${themeData.themeColor}`)
             embed.addFields(
                 {
-                    name: `${themeData.themeEmote} Date d'anniversaire`, value: `${mentionProfileData.profile.birthday.month == 0 ? `Date d'anniversaire non définie.` : `${mentionProfileData.profile.birthday.day}/${mentionProfileData.profile.birthday.month}`}`, inline: true
+                    name: `${themeData.themeEmote} Date d'anniversaire`, value: `🎂  ${mentionProfileData.profile.birthday.month == 0 ? `Date d'anniversaire non définie.` : `${mentionProfileData.profile.birthday.day}/${mentionProfileData.profile.birthday.month}`}`, inline: true
                 },
                 {
                     name: `${themeData.themeEmote} Messages privés`, value: `${mentionProfileData.profile.mp == 0 ? `🟩 Ouverts` : mentionProfileData.profile.mp == 1 ? `🟧 Sur demande` : `🟥 fermés`}`, inline : true
                 },
-                {name :`${themeData.themeEmote} Fragments polaires`, value:`🌠 ${mentionProfileData.economy.coins}`}
+                {name :`${themeData.themeEmote} Fragments polaires`, value:`🌠 ${mentionProfileData.economy.coins}`, inline: true},
+                {name :`${themeData.themeEmote} Nombre de personnes ayant aimé le profil`, value:`👍 ${mentionProfileData.profile.likes.length === 0 ? `Encore personne n'a aimé ce profil.` : mentionProfileData.profile.likes.length}`, inline: true},
+                {name :`${themeData.themeEmote} Nombre de cadeaux reçus aujourd'hui`, value:`🎁 ${mentionProfileData.profile.gifts.length === 0 ? `Encore aucun cadeau reçu aujourd'hui.` : mentionProfileData.profile.gifts.length}`, inline: true},
             )
             embed.addField(`${themeData.themeEmote} Niveau ${mentionProfileData.level.level}`, `${expBar}⬆️ (${mentionProfileData.level.experience}/${expToLevelUp})`)
             embed.setTimestamp()
@@ -204,12 +206,15 @@ module.exports = {
 
             embed.addFields(
                 {
-                    name: `${themeData.themeEmote} Date d'anniversaire`, value: `${profileData.profile.birthday.month == 0 ? `Date d'anniversaire non définie.` : `${profileData.profile.birthday.day}/${profileData.profile.birthday.month}`}`, inline: true
+                    name: `${themeData.themeEmote} Date d'anniversaire`, value: `${profileData.profile.birthday.month == 0 ? `Date d'anniversaire non définie.` : `🎂 ${profileData.profile.birthday.day}/${profileData.profile.birthday.month}`}`, inline: true
                 },
                 {
                     name: `${themeData.themeEmote} Messages privés`, value: `${profileData.profile.mp == 0 ? `🟩 Ouverts` : profileData.profile.mp == 1 ? `🟧 Sur demande` : `🟥 fermés`}`, inline : true
                 },
-                {name :`${themeData.themeEmote} Fragments polaires`, value:`🌠 ${profileData.economy.coins}`}
+                {name :`${themeData.themeEmote} Fragments polaires`, value:`🌠 ${profileData.economy.coins}`, inline: true},
+                {name :`${themeData.themeEmote} Nombre de personnes ayant aimé votre profil`, value:`👍 ${profileData.profile.likes.length === 0 ? `Encore personne n'a aimé votre profil.` : profileData.profile.likes.length}`, inline: true},
+                {name :`${themeData.themeEmote} Nombre de cadeaux reçus aujourd'hui`, value:`🎁 ${profileData.profile.gifts.length === 0 ? `Encore aucun cadeau reçu aujourd'hui.` : profileData.profile.gifts.length}`, inline: true},
+                
             )
             embed.addField(`${themeData.themeEmote} Niveau ${profileData.level.level}`, `${expBar}⬆️ (${profileData.level.experience}/${expToLevelUp})`)
             embed.setTimestamp()

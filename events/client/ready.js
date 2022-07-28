@@ -70,7 +70,8 @@ module.exports = {
                         'quests.dailies.mentions' : 0,
                         'quests.dailies.event': 0,
                         'quests.dailies.commission': 0,
-                        'quests.dailies.reward': 0
+                        'quests.dailies.reward': 0,
+                        'profile.gifts': []
                     }
                 });
                 client.channels.fetch('802070130837291029').then(channel => {
@@ -83,7 +84,7 @@ module.exports = {
         );
 
         var birthday = new CronJob(
-            '0 11 22 * * *',
+            '0 0 0 * * *',
             async function() {
                 const day = dayjs().date()
                 const month = dayjs().month() + 1

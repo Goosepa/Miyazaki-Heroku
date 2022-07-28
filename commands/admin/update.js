@@ -9,9 +9,9 @@ module.exports = {
     usage: '`/update`',
     description: 'La commande `/update` permet de mettre à jour les données de la base de données.',
     async runInteraction(client, interaction) {
-        await Guild.updateMany({}, {
+        await Profile.updateMany({}, {
             '$set': {
-                'profileData': []
+                'profile.gifts': []
             }
         });
 
