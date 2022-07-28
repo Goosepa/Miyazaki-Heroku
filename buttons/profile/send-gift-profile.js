@@ -57,7 +57,7 @@ module.exports = {
                     .setTimestamp()
                     .setThumbnail('https://media.discordapp.net/attachments/1001221935386079353/1002185148265140334/inventory.png?width=671&height=671')
 
-                    interaction.reply({ content: `🎁 Vous avez envoyé un cadeau à ${mentionUser}. ℹ️ Les cadeaux ne peuvent être envoyés qu'une fois par jour, à plusieurs personnes et ne sont pas déduits des objets de votre inventaire.`, ephemeral: true })
+                    interaction.reply({ content: `🎁 Vous avez envoyé ${gifts[whichGift]} à ${mentionUser}. ℹ️ Les cadeaux ne peuvent être envoyés qu'une fois par jour, à plusieurs personnes et ne sont pas déduits des objets de votre inventaire.`, ephemeral: true })
 
                     return client.channels.fetch('770628068632559628').then(channel => {
                         channel.send({content: `${mentionUser}`, embeds: [ embed ] }).then(message => {
@@ -79,8 +79,11 @@ module.exports = {
                     .addFields(
                         { name: `📩 Contenu du cadeau`, value: `${gifts[whichGift]}` }
                     )
+                    .setColor('FFFFFF')
                     .setTimestamp()
                     .setThumbnail('https://media.discordapp.net/attachments/1001221935386079353/1002185148265140334/inventory.png?width=671&height=671')
+
+                    interaction.reply({ content: `🎁 Vous avez envoyé ${gifts[whichGift]} à ${mentionUser}. ℹ️ Les cadeaux ne peuvent être envoyés qu'une fois par jour, à plusieurs personnes et ne sont pas déduits des objets de votre inventaire.`, ephemeral: true })
 
                     return client.channels.fetch('770628068632559628').then(channel => {
                         channel.send({content: `${mentionUser}`, embeds: [ embed ] }).then(message => {
