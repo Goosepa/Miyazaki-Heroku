@@ -119,6 +119,20 @@ module.exports = {
                 .setTimestamp()
                 .setImage(`${themeData.themeImage}`)
                 .setFooter({ text: `Thème : ${themeData.themeName}` });
+                
+
+                const embed2 = new MessageEmbed()
+                    .setTitle(`👍 Waouh, quelqu'un a aimé ton profil !`)
+                    .setDescription(`Le membre ${interaction.member} a aimé ton profil ! Que dirais tu d'aimer son profil en retour ou de lui envoyer un cadeau ?`)
+                    .setColor('FFFFFF')
+                    .setTimestamp()
+                    .setThumbnail('https://media.discordapp.net/attachments/1001221935386079353/1002202952922038282/Like.png?width=671&height=671')
+
+                client.channels.fetch('770628068632559628').then(channel => {
+                    channel.send({content: `${mentionUser}`, embeds: [ embed2 ] }).then(message => {
+                        message.react('👍')
+                    });
+                });
 
                 return interaction.channel.messages.fetch(interactionId.interactionMessageId)
                 .then(message => message.edit({ embeds: [embed]}).then(interaction.reply({ content: `Vous avez aimé le profil de ${mentionUser}.`, ephemeral: true })));

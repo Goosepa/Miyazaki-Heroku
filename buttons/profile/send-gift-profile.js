@@ -30,6 +30,14 @@ module.exports = {
                     const item = mentionMemberProfileData.inventory.find(item => item.name == `Jeton du Casino Belladone`);
                     const itemIndex = mentionMemberProfileData.inventory.indexOf(item);
 
+                    const embed = new MessageEmbed()
+                    .setTitle(`🎁 Waouh, tu as reçu un cadeau !`)
+                    .setDescription(`C'est un cadeau de la part du membre ${interaction.member} ! Ouvre le vite !`)
+                    .setFooter({ text: `🔁 Réception automatique du cadeau` })
+                    .setColor('FFFFFF')
+                    .setTimestamp()
+                    .setThumbnail('https://media.discordapp.net/attachments/1001221935386079353/1002202968956874863/Gift.png?width=671&height=671')
+
                     if (itemIndex != -1) {
                         console.log('Ok')
                         await Profile.updateOne({ userId: mentionUser.id, guildId: interaction.guild.id }, {
@@ -37,6 +45,10 @@ module.exports = {
                                 [`inventory.${itemIndex}.quantity`] : mentionMemberProfileData.inventory[itemIndex].quantity + 5
                             }
                         });
+
+                        embed.addFields(
+                            { name: `📩 Contenu du cadeau`, value: `${gifts[whichGift]} — ${mentionMemberProfileData.inventory[itemIndex].quantity} ➡️ ${mentionMemberProfileData.inventory[itemIndex].quantity + 5}` }
+                        )
                     } else {
                         console.log('Pas ok')
                         await Profile.updateOne({ userId: interaction.user.id, guildId: interaction.guild.id }, {
@@ -44,18 +56,11 @@ module.exports = {
                                 'inventory' : { name: "Jeton du Casino Belladone", quantity: 5, category: "Objets échangeables", itemEmote:"🪙"}
                             }
                         });
-                    }
 
-                    const embed = new MessageEmbed()
-                    .setTitle(`🎁 Waouh, tu as reçu un cadeau !`)
-                    .setDescription(`C'est un cadeau de la part du membre ${interaction.member.nickname || interaction.user.username} ! Ouvre le vite !`)
-                    .setFooter({ text: `🔁 Réception automatique du cadeau` })
-                    .setColor('FFFFFF')
-                    .addFields(
-                        { name: `📩 Contenu du cadeau`, value: `${gifts[whichGift]}` }
-                    )
-                    .setTimestamp()
-                    .setThumbnail('https://media.discordapp.net/attachments/1001221935386079353/1002185148265140334/inventory.png?width=671&height=671')
+                        embed.addFields(
+                            { name: `📩 Contenu du cadeau`, value: `${gifts[whichGift]} — 0 ➡️ 5` }
+                        )
+                    }
 
                     interaction.reply({ content: `🎁 Vous avez envoyé ${gifts[whichGift]} à ${mentionUser}. ℹ️ Les cadeaux ne peuvent être envoyés qu'une fois par jour, à plusieurs personnes et ne sont pas déduits des objets de votre inventaire.`, ephemeral: true })
 
@@ -77,11 +82,11 @@ module.exports = {
                     .setDescription(`C'est un cadeau de la part du membre ${interaction.member} ! Ouvre le vite !`)
                     .setFooter({ text: `🔁 Réception automatique du cadeau` })
                     .addFields(
-                        { name: `📩 Contenu du cadeau`, value: `${gifts[whichGift]}` }
+                        { name: `📩 Contenu du cadeau`, value: `${gifts[whichGift]} — ${mentionMemberProfileData.economy.coins} ➡️ ${mentionMemberProfileData.economy.coins + 60000}` }
                     )
                     .setColor('FFFFFF')
                     .setTimestamp()
-                    .setThumbnail('https://media.discordapp.net/attachments/1001221935386079353/1002185148265140334/inventory.png?width=671&height=671')
+                    .setThumbnail('https://media.discordapp.net/attachments/1001221935386079353/1002202968956874863/Gift.png?width=671&height=671')
 
                     interaction.reply({ content: `🎁 Vous avez envoyé ${gifts[whichGift]} à ${mentionUser}. ℹ️ Les cadeaux ne peuvent être envoyés qu'une fois par jour, à plusieurs personnes et ne sont pas déduits des objets de votre inventaire.`, ephemeral: true })
 
