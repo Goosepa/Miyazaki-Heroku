@@ -54,7 +54,7 @@ module.exports = {
         var resetDailies = new CronJob(
             '0 0 0 * * *',
             async function() {
-                await Profile.updateOne({userId: "638436496596008972"}, {
+                await Profile.updateMany({}, {
                     '$set' : {
                         'quests.dailies.messages' : 0,
                         'quests.dailies.mentions' : 0,
